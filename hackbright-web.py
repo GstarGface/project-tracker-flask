@@ -4,6 +4,12 @@ import hackbright
 
 app = Flask(__name__)
 
+@app.route("/")
+def home_page():
+    """This is the home page with links to search and add."""
+
+    return render_template("home.html")
+
 
 @app.route("/student-search")
 def get_student_form():
