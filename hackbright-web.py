@@ -24,11 +24,26 @@ def get_student():
 
     github = request.args.get('github', 'jhacks')
     first, last, github = hackbright.get_student_by_github(github)
+
+
+    all_grades = hackbright.get_all_grades_by_github(github)
+    project_list=[]
+    grade_list=[]
+    for item in all_grades:
+        project_list.append(item[0])
+        grade_list.append(item[1])
+
     html = render_template("student_info.html",
                             first=first,
                             last=last,
-                            github=github)
+                            github=github,
+                            grade_list=grade_list,
+                            project_list=project_list)
     return html
+    # else: 
+    #     # return 
+
+
 
 
 @app.route("/student-add")

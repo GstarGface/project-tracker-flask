@@ -76,6 +76,19 @@ def assign_grade(github, title, grade):
         grade, github, title)
 
 
+def get_all_grades_by_github(github):
+    """Print all project grades for a student."""
+
+    QUERY = """
+        SELECT project_title, grade
+        FROM Grades
+        WHERE student_github = ?
+      """
+    db_cursor.execute(QUERY, (github, ))
+    list_of_project_grades = db_cursor.fetchall()
+    return list_of_project_grades
+    
+
 def handle_input():
     """Main loop.
 
@@ -109,6 +122,10 @@ def handle_input():
         elif command == "assign_grade":
             github, title, grade = args
             assign_grade(github, title, grade)
+
+        elif command == "get_all_grades":
+            github = args[0]
+            get_all_grades_by_github(github)
 
 
 if __name__ == "__main__":
